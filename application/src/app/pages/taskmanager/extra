@@ -1,0 +1,192 @@
+// console.log(Response);
+    // this.getDataFromAPI();
+    // this.taskService.getTasks().subscribe(
+    //   (response) => {
+    //     console.log('Response from API is', response);
+    //   },
+    //   (error) => {
+    //     console.log('Errprs is', error);
+    //   }
+    // );
+
+
+      // createTask(title:string){
+  //   this.taskService
+  //   .createTask(title)
+  //   .subscribe(newTask: Task => {this.Task.push(title);
+  // }
+
+
+ // createTask(title: string) {
+  //   this.taskService.createTask(title).subscribe((Task) => {
+  //     this.page == 1;
+  //     console.log(title);
+  //   });
+  // }
+
+
+
+    // getDataFromAPI() {
+  //   // we get all information/method from postService
+  //   this.taskService.getTasks().subscribe(
+  //     (response) => {
+  //       console.log('Response from API is', response);
+  //     },
+  //     (error) => {
+  //       console.log('Errprs is', error);
+  //     }
+  //   );
+
+
+<div class="centered-content">
+  <!-- Page one -->
+  <section *ngIf="page == 1" class="centered-content">
+    <div class="task-manager-container">
+      <!-- <div class="sidebar">
+      <h1 class="title has-text-primary">Lists</h1>
+      <div class="list-menu">
+        <div class="list-item"></div>
+        <a class="list-menu-item">
+          <p>List</p>
+        </a>
+        <div class="icon">
+          <i class="fas fa-pencil-alt"></i>
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+
+      <button class="button is-primary has-text-white" routerLink="/new-list">
+        + New List
+      </button>
+    </div> -->
+
+      <div class="task-list-container">
+        <div>
+          <div class="top-bar">
+            <h1 class="title has-text-primary">Tasks</h1>
+          </div>
+
+          <!-- Task Elements -->
+          <div class="task" *ngFor="let task of tasks">
+            <div class="task-text">
+              <p></p>
+            </div>
+            <div class="task-buttons">
+              <button class="button">
+                <div class="icon">
+                  <i class="fas fa-check"></i>
+                </div>
+              </button>
+              <button class="button" style="margin-left: 10px">
+                <div class="icon">
+                  <i class="fas fa-edit"></i>
+                </div>
+              </button>
+              <button
+                class="button is-danger"
+                style="margin-left: 10px"
+                (click)="onDeletTask(task.id)"
+              >
+                <div class="icon">
+                  <i class="fas fa-trash"></i>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- <h3 class="empty-state-text">
+          There are no tasks here! Click the add button to create a new task.
+        </h3> -->
+
+          <div class="fix-btn">
+            <button
+              (click)="backPageTwo()"
+              class="task-add-button button is-primary"
+            >
+              + Add Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- page two(create a new task) -->
+  <section *ngIf="page == 2">
+    <div class="centered-content">
+      <div class="modal-box box-two">
+        <h1 class="title has-text-primary">Create a new task</h1>
+
+        <input
+          placeholder="New Task"
+          name="task"
+          required
+          class="input has-background-light is-medium"
+          type="text"
+        />
+        <br /><br />
+        <div class="buttons is-right">
+          <button class="button is-medium" (click)="cancelBtn()">Cancel</button>
+          <!-- make en event that catch the input value -->
+          <button
+            class="button is-primary has-text-white is-medium"
+            (click)="createTask()"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { TaskService } from './../../services/task.service';
+import { Task } from './../../types/task';
+// import { title } from 'process';
+
+@Component({
+  selector: 'app-taskmanager',
+  templateUrl: './taskmanager.component.html',
+  styleUrls: ['./taskmanager.component.scss'],
+})
+export class TaskmanagerComponent implements OnInit {
+  tasks: Task[] = [];
+  page: number = 1;
+  newTask!: string;
+  // inject the API service, and call the getTasks()
+  constructor(private taskService: TaskService, public router: Router) {}
+
+  ngOnInit(): void {
+    // we get all information/method from postService
+    this.taskService.getTasks().subscribe((Task) => (this.tasks = Task));
+  }
+
+  // post a new task
+  createTask() {
+    this.taskService
+      .createTask(this.newTask)
+      .subscribe((title) => this.tasks.push(title));
+  }
+
+  // delet a task
+  onDeletTask(id: number) {
+    this.taskService.deleteTask(id).subscribe();
+    console.log(id);
+  }
+
+  // method for go to page two and create a new task
+  backPageTwo() {
+    this.page = 2;
+  }
+
+  // back to task
+  cancelBtn() {
+    this.page = 1;
+  }
+}

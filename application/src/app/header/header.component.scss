@@ -1,0 +1,28 @@
+.header {
+  padding: 0 8%;
+  background-color: #111114;
+  height: 4rem;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // z-index: 5;
+
+  .logo {
+    color: #e09145;
+    font-size: 2rem;
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.active {
+  color: #e09145;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  padding-left: 1rem;
+}
