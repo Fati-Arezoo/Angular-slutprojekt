@@ -1,14 +1,17 @@
 import { catchError } from 'rxjs/operators';
-import { Task } from './../types/task';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+// import the ts file
+import { Task } from './../types/task';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   apiUrl = 'http://localhost:3000/tasks';
+
   // inject the HttpClient class in the service
   constructor(private http: HttpClient) {}
 
@@ -18,55 +21,32 @@ export class TaskService {
     }),
   };
 
-  //   Create a method to query the endpoint
+  //  Create a method to query the endpoint
   public getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}`);
+    return this.http.get<Task[]>(this.apiUrl);
   }
 
   /** POST: add a new task to the database */
-  createTask(title: string): Observable<Task> {
-    return this.http.post<Task>(
-      this.apiUrl,
-      JSON.stringify(title),
-      this.httpOptions
-    );
-    // .pipe(
-    //   catchError(this.handleError('createTask', title))
-    // );
+  // need objekt
+  createTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl, task, this.httpOptions);
+  }
+
+  /** PUT: update the task on the server */
+  updateTask(task: Task): Observable<Task> {
+    const url = `${this.apiUrl}/${task.id}`; //for updating we need task.id
+    return this.http.put<Task>(url, task, this.httpOptions);
   }
 
   /** DELETE: delete the task from the server */
   deleteTask(id: number): Observable<{}> {
     const url = `${this.apiUrl}/${id}`; // DELETE api/tasks/2
     return this.http.delete(url, this.httpOptions);
-    // .pipe(
-    //   catchError(this.handleError('deleteHero'))
-    // );
   }
+
+  // //** commplete
+  // complete(task: Task) {
+  //   const url = `${this.apiUrl}/${task.id}`; // DELETE api/tasks/2
+  //   return this.http.patch(url, this.httpOptions);
+  // }
 }
-
-// createTask(title: string) {
-//   return this.http.post('tasks', { title });
-// }
-// getTask(title:string): Observable<Task> {
-//     return this.http.post<Task>(`${this.API_URL}/tasks/`);
-
-//   }
-
-// Create a new item
-// createTask(title: string): Observable<Task> {
-//   return this.http.post<Task>(
-//     this.API_URL,
-//     JSON.stringify(title),
-//     this.httpOptions
-//   );
-// }
-
-// post(uri: string, payload: Object) {
-//   return this.http.post(`${this.API_URL}/${uri}`, payload);
-// }
-
-// Delete message by id
-// deleteItem(id: any) {
-//   return this.http.delete<Task>(this.API_URL + '/' + id, this.httpOptions);
-// }e

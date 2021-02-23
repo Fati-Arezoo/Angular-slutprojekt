@@ -15,6 +15,8 @@ import { TaskmanagerComponent } from './pages/taskmanager/taskmanager.component'
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TaskmanagerComponent,
     HeaderComponent,
     HomeComponent,
+    FooterComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

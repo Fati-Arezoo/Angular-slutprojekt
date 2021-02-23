@@ -1,72 +1,61 @@
-<div class="centered-content">
+<div class="centered-content container">
   <!-- Page one -->
   <section *ngIf="page == 1" class="centered-content">
     <div class="task-manager-container">
-      <!-- <div class="sidebar">
-      <h1 class="title has-text-primary">Lists</h1>
-      <div class="list-menu">
-        <div class="list-item"></div>
-        <a class="list-menu-item">
-          <p>List</p>
-        </a>
-        <div class="icon">
-          <i class="fas fa-pencil-alt"></i>
-          <i class="fas fa-times"></i>
-        </div>
-      </div>
-
-      <button class="button is-primary has-text-white" routerLink="/new-list">
-        + New List
-      </button>
-    </div> -->
-
       <div class="task-list-container">
-        <div>
-          <div class="top-bar">
+        <div class="top-bar">
+          <div class="topbar-title">
             <h1 class="title has-text-primary">Tasks</h1>
           </div>
 
-          <!-- Task Elements -->
-          <div class="task" *ngFor="let task of tasks">
-            <div class="task-text">
-              <p>{{ task.title }}</p>
-            </div>
-            <div class="task-buttons">
-              <button class="button">
-                <div class="icon">
-                  <i class="fas fa-check"></i>
-                </div>
-              </button>
-              <button class="button" style="margin-left: 10px">
-                <div class="icon">
-                  <i class="fas fa-edit"></i>
-                </div>
-              </button>
-              <button class="button is-danger" style="margin-left: 10px">
-                <div class="icon">
-                  <i class="fas fa-trash"></i>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- <h3 class="empty-state-text">
-          There are no tasks here! Click the add button to create a new task.
-        </h3> -->
-
+          <!-- Button for add a new task -->
           <div class="fix-btn">
             <button
               (click)="backPageTwo()"
-              class="task-add-button button is-primary"
+              class="task-add-button button is-medium is-primary"
             >
               + Add Task
             </button>
           </div>
         </div>
 
-        <!-- <div>
-        <h3 class="empty-state-text">Please select a list from the sidebar</h3>
-      </div> -->
+        <!-- Task Elements -->
+        <div class="task" *ngFor="let task of tasks">
+          <div class="task-text">
+            <p class="title-text">{{ task.title }}</p>
+            <p class="text">{{ task.content }}</p>
+          </div>
+
+          <div class="task-buttons">
+            <button class="button">
+              <div class="icon">
+                <i class="fas fa-check" (click)="onCheckTask($event)"></i>
+              </div>
+            </button>
+            <button
+              class="button"
+              style="margin-left: 10px"
+              (click)="editTask(task.id)"
+            >
+              <div class="icon">
+                <i class="fas fa-edit"></i>
+              </div>
+            </button>
+            <button
+              class="button is-danger"
+              style="margin-left: 10px"
+              (click)="onDeletTask(task.id)"
+            >
+              <div class="icon">
+                <i class="fas fa-trash"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- <h3 class="empty-state-text">
+          There are no tasks here! Click the add button to create a new task.
+        </h3> -->
       </div>
     </div>
   </section>
@@ -75,23 +64,47 @@
   <section *ngIf="page == 2">
     <div class="centered-content">
       <div class="modal-box box-two">
-        <h1 class="title has-text-primary">Create a new task</h1>
+        <!-- tittle is (Create a new task) when we want create a new task -->
+        <h1 class="title has-text-primary" *ngIf="newTask.id == 0">
+          Create a new task
+        </h1>
+        <!-- tittle is (Edit task) when we want edit a task -->
+        <h1 class="title has-text-primary" *ngIf="newTask.id > 0">Edit Task</h1>
 
         <input
-          #taskTitleInput
           class="input has-background-light is-medium"
           type="text"
-          placeholder="New task..."
+          placeholder="Title..."
+          [(ngModel)]="newTask.title"
         />
+        <textarea
+          class="textarea has-background-light is-medium"
+          rows="5"
+          placeholder="write description..."
+          [(ngModel)]="newTask.content"
+        ></textarea>
         <br /><br />
-        <div class="buttons is-right">
+
+        <!-- buttons in page two -->
+
+        <div class="buttons">
           <button class="button is-medium" (click)="cancelBtn()">Cancel</button>
-          <!-- make en event that catch the input value -->
+          <!-- Butten is (Add) when we want create a new task-->
+          <!-- if newTask.id is equal to 0 , it's mean that we have a create a new task  -->
           <button
-            class="button is-primary has-text-white is-medium"
+            class="button is-primary is-medium button-right"
             (click)="createTask()"
+            *ngIf="newTask.id == 0"
           >
-            Create
+            Add
+          </button>
+          <!-- button is (save) when we want edit a task and we have update function here -->
+          <button
+            class="button is-primary is-medium button-right"
+            (click)="updateTask()"
+            *ngIf="newTask.id > 0"
+          >
+            Save
           </button>
         </div>
       </div>

@@ -5,8 +5,15 @@
 
   <span class="example-spacer"></span>
 
-  <a routerLink="/" routerLinkActive="active">Home</a>
+  <a
+    routerLink="/"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Home</a
+  >
   <a routerLink="/task" routerLinkActive="active">Task</a>
+  <a routerLink="/contact" routerLinkActive="active">Contact</a>
+  <!-- <a routerLink="/task" routerLinkActive="active">Task</a> -->
 
   <!-- <a  routerLink="/contact" routerLinkActive="active">Contact</a> -->
 </mat-toolbar>

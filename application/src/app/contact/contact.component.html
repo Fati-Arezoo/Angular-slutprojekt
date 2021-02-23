@@ -1,0 +1,112 @@
+<div class="container-contact">
+  <!-- form -->
+  <form
+    #form="ngForm"
+    (submit)="submitForm()"
+    class="form-group"
+    *ngIf="page == 1"
+  >
+    <!-- first name  -->
+    <div class="field">
+      <label class="label">First name</label>
+      <div class="control">
+        <input
+          class="input form-control"
+          type="text"
+          placeholder="firstname"
+          required
+          ngModel
+          name="firstname"
+          #firstname="ngModel"
+        />
+      </div>
+      <div class="help is-danger" *ngIf="firstname.touched && !firstname.valid">
+        This first name is invalid
+      </div>
+    </div>
+
+    <!-- last name  -->
+    <div class="field">
+      <label class="label">Last name</label>
+      <div class="control">
+        <input
+          class="input form-control"
+          placeholder="lastname"
+          required
+          ngModel
+          name="lastname"
+          #lastname="ngModel"
+        />
+      </div>
+      <div class="help is-danger" *ngIf="lastname.touched && !lastname.valid">
+        This last name is invalid
+      </div>
+    </div>
+
+    <!-- Email -->
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          class="input form-control"
+          placeholder="email"
+          required
+          ngModel
+          name="email"
+          #email="ngModel"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+      </div>
+      <div class="help is-danger" *ngIf="email.touched && !email.valid">
+        This email is invalid
+      </div>
+    </div>
+
+    <!-- message -->
+    <div class="field">
+      <label class="label">Message</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Write your message...."
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="field is-grouped">
+      <div class="control">
+        <button
+          class="button submit-button is-link"
+          [disabled]="form.invalid"
+          type="submit"
+        >
+          Send
+        </button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light" routerLink="/">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- page two -->
+  <div class="page-two-centerad">
+    <div class="page-two" *ngIf="page == 2">
+      <div class="times-icon">
+        <i class="fas fa-times" (click)="onClick()"></i>
+      </div>
+
+      <div class="post">
+        <span><i class="fas fa-envelope post-icon"></i></span>
+        <p class="post-content">
+          Thanks for contacting us.<br />
+          <span> It will take up to 24h, before we look at the message!</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
