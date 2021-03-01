@@ -2,28 +2,44 @@
   padding: 0 8%;
   background-color: #292c35;
   height: 4rem;
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   .logo {
     color: #e09145;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .active {
+    color: #e09145;
+  }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    padding-left: 1rem;
+    font-size: 15px;
   }
 }
 
-.example-spacer {
-  flex: 1 1 auto;
-}
+@media screen and (max-width: 450px) {
+  .header {
+    padding: 0 0 !important;
+    display: flex;
+    justify-content: stretch;
+    .logo {
+      padding-left: 2rem;
+    }
 
-.active {
-  color: #e09145;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-  padding-left: 1rem;
-  font-size: 16px;
+    .menu-on-right-side {
+      padding-left: 8rem;
+    }
+  }
 }

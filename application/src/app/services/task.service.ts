@@ -43,10 +43,4 @@ export class TaskService {
     const url = `${this.apiUrl}/${id}`; // DELETE api/tasks/2
     return this.http.delete(url, this.httpOptions);
   }
-
-  // //** commplete
-  // complete(task: Task) {
-  //   const url = `${this.apiUrl}/${task.id}`; // DELETE api/tasks/2
-  //   return this.http.patch(url, this.httpOptions);
-  // }
 }

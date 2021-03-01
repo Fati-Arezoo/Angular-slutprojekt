@@ -2,7 +2,7 @@
 
 const express = require("express");
 const app = express();
-//  se port
+//  port
 const port = 3000;
 // this a method that have two paramters(path and callback)
 app.get("/", (req, res) => {

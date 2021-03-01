@@ -1,8 +1,9 @@
 <div class="centered-content container">
-  <!-- Page one -->
+  <!-- Page one(task box) -->
   <section *ngIf="page == 1" class="centered-content">
     <div class="task-manager-container">
-      <div class="task-list-container">
+      <div class="task-container">
+        <!-- Task title and add button -->
         <div class="top-bar">
           <div class="topbar-title">
             <h1 class="title has-text-primary">Tasks</h1>
@@ -20,18 +21,26 @@
         </div>
 
         <!-- Task Elements -->
-        <div class="task" *ngFor="let task of tasks">
+        <div
+          class="task"
+          *ngFor="let task of tasks; let i = index"
+          [@ckeckTask]="states[i]"
+        >
           <div class="task-text">
-            <p class="title-text">{{ task.title }}</p>
-            <p class="text">{{ task.content }}</p>
+            <p class="title-text">{{ task.title | titlecase }}</p>
+            <p class="text">{{ task.content | titlecase }}</p>
           </div>
 
+          <!-- Buttons -->
           <div class="task-buttons">
-            <button class="button">
+            <!-- Check button -->
+            <button class="button" (click)="onCheckTask(i)">
               <div class="icon">
-                <i class="fas fa-check" (click)="onCheckTask($event)"></i>
+                <i class="fas fa-check"></i>
               </div>
             </button>
+
+            <!-- Edit/update button -->
             <button
               class="button"
               style="margin-left: 10px"
@@ -41,6 +50,8 @@
                 <i class="fas fa-edit"></i>
               </div>
             </button>
+
+            <!-- Delet button -->
             <button
               class="button is-danger"
               style="margin-left: 10px"
@@ -53,9 +64,11 @@
           </div>
         </div>
 
-        <!-- <h3 class="empty-state-text">
-          There are no tasks here! Click the add button to create a new task.
-        </h3> -->
+        <!-- text when box is empty -->
+        <h3 class="empty-task-text" *ngIf="tasks.length === 0">
+          There are no tasks here! <br />Click the add task button to create
+          task.
+        </h3>
       </div>
     </div>
   </section>
@@ -64,11 +77,11 @@
   <section *ngIf="page == 2">
     <div class="centered-content">
       <div class="modal-box box-two">
-        <!-- tittle is (Create a new task) when we want create a new task -->
+        <!-- title is "create a new task" when we want to create a new task -->
         <h1 class="title has-text-primary" *ngIf="newTask.id == 0">
           Create a new task
         </h1>
-        <!-- tittle is (Edit task) when we want edit a task -->
+        <!-- tittle is "edit task" when we want to edit a task -->
         <h1 class="title has-text-primary" *ngIf="newTask.id > 0">Edit Task</h1>
 
         <input
@@ -89,8 +102,8 @@
 
         <div class="buttons">
           <button class="button is-medium" (click)="cancelBtn()">Cancel</button>
-          <!-- Butten is (Add) when we want create a new task-->
-          <!-- if newTask.id is equal to 0 , it's mean that we have a create a new task  -->
+          <!-- Butten'text is "Add" when we want to create a new task-->
+          <!-- if newTask.id is equal to 0 , it's mean that we have not a task yet and we can create a new task  -->
           <button
             class="button is-primary is-medium button-right"
             (click)="createTask()"
@@ -98,7 +111,7 @@
           >
             Add
           </button>
-          <!-- button is (save) when we want edit a task and we have update function here -->
+          <!-- button'text is "save" when we want to edit a task and we have update function here -->
           <button
             class="button is-primary is-medium button-right"
             (click)="updateTask()"

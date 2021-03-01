@@ -2,20 +2,30 @@ import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { trigger, state, style } from '@angular/animations';
 
 import { TaskService } from './../../services/task.service';
 import { Task } from './../../types/task';
-import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-taskmanager',
   templateUrl: './taskmanager.component.html',
   styleUrls: ['./taskmanager.component.scss'],
+  animations: [
+    trigger('ckeckTask', [
+      state('active', style({})),
+      state(
+        'inactive',
+        style({ borderLeft: '10px solid #fcd9b8', opacity: '0.7' })
+      ),
+    ]),
+  ],
 })
 export class TaskmanagerComponent implements OnInit {
   // propety of component
   tasks: Task[] = [];
   page: number = 1;
+
   // create a objekt(newTask) type of Task
   newTask: Task = {
     id: 0,
@@ -23,7 +33,13 @@ export class TaskmanagerComponent implements OnInit {
     content: '',
   };
 
-  // inject the API service, and call the getTasks()
+  state = 'active';
+  states = this.tasks.map(() => 'activ');
+  // check method
+  onCheckTask(i: number) {
+    this.states[i] = this.states[i] === 'inactive' ? 'active' : 'inactive';
+  }
+
   constructor(private taskService: TaskService, public router: Router) {}
 
   ngOnInit(): void {
@@ -42,7 +58,7 @@ export class TaskmanagerComponent implements OnInit {
     this.page = 1;
   }
 
-  // Edit a task , we need id for att edit the task
+  // Edit a task , we need id for edit the task
   editTask(id: number) {
     // find the task
     let task = this.tasks.find((item) => {
@@ -84,19 +100,6 @@ export class TaskmanagerComponent implements OnInit {
     });
   }
 
-  // check a task
-  onCheckTask(e: any): void {
-    if (e.target.classList.contains('fa-check')) {
-      e.target.parentElement.parentElement.parentElement.parentElement.classList.toggle(
-        'done'
-      );
-    }
-
-    console.log(
-      e.target.parentElement.parentElemen.parentElement.parentElement
-    );
-  }
-
   // method for go to page two and create a new task
   backPageTwo() {
     this.page = 2;
@@ -105,7 +108,7 @@ export class TaskmanagerComponent implements OnInit {
     this.newTask.id = 0;
   }
 
-  // back to task
+  // back to task box(page ones)
   cancelBtn() {
     this.page = 1;
   }

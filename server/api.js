@@ -10,17 +10,17 @@ const port = 3000;
 
 // this is like my database
 let tasks = [];
+
 // for get new id every time
 let taskCounter = 0;
 
-// this is a function that return middleware
+// function that return middleware
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // defined a root
-// this a method that have two paramters(path and callback)
 app.get("/", (req, res) => {
   // can se the message in port 3000
   res.send("Hello World, from express");

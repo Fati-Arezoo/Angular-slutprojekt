@@ -4,78 +4,90 @@
   background-image: url("../../assets/bilder/Desktop.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-}
 
-.show-case {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .hero-box {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.section {
-  align-content: center;
-  transition-duration: 0.2s;
-  transition-timing-function: linear;
-  color: #fff;
-  &:hover {
-    transform: scale(1.1);
+    .section {
+      align-content: center;
+      transition-duration: 0.2s;
+      transition-timing-function: linear;
+      color: #fff;
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      .hero-title {
+        position: relative;
+        width: 504px;
+        height: 250px;
+        padding-left: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        border: 4px solid #e09145;
+        outline: none;
+
+        &::after {
+          position: absolute;
+          content: "";
+          width: 482px;
+          height: 230px;
+          left: 8px;
+          border: 4px solid #e09145;
+        }
+
+        .title-contect {
+          font-family: "Roboto";
+          font-style: normal;
+          font-weight: bold;
+          font-size: 40px;
+          line-height: 3rem;
+          text-align: center;
+          letter-spacing: 0.3rem;
+          color: #fff;
+        }
+
+        .contentOne {
+          padding-right: 9rem;
+        }
+
+        .contentTwo {
+          padding-left: 5.5rem;
+        }
+
+        .span-text {
+          font-family: "Satisfy";
+          transform: rotate(100deg);
+          color: #f7ac66;
+        }
+      }
+    }
   }
 }
 
-.hero-title {
-  position: relative;
-  width: 504px;
-  height: 250px;
-  padding-left: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  border: 4px solid #e09145;
+@media screen and (max-width: 500px) {
+  .hero-title {
+    width: 404px !important;
+    height: 150px !important;
+    &::after {
+      width: 382px !important;
+      height: 130px !important;
+    }
 
-  &::after {
-    position: absolute;
-    content: "";
-    width: 480px;
-    height: 230px;
-    left: 8px;
-    border: 4px solid #e09145;
+    .title-contect {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 25px !important;
+      line-height: 2rem !important;
+      text-align: center;
+      letter-spacing: 0.3rem;
+      color: #fff;
+    }
   }
-}
-
-// .her-text {
-// font-family: "Satisfy";
-//   // font-style: normal;
-//   // font-weight: normal;
-//   letter-spacing: 0.11em;
-//   transform: matrix(0.99, -0.14, 0.13, 0.99, 0, 0);
-//   color: #fff;
-// }
-
-.title-contect {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 40px;
-  line-height: 3rem;
-  text-align: center;
-  letter-spacing: 0.3rem;
-  color: #fff;
-}
-
-.contentOne {
-  padding-right: 9rem;
-}
-
-.contentTwo {
-  padding-left: 5.5rem;
-}
-
-.span-text {
-  font-family: "Satisfy";
-  transform: rotate(50deg);
-  text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
-    1px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
-  color: #cf833b;
 }

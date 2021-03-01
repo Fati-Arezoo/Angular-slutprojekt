@@ -1,19 +1,20 @@
-<mat-toolbar class="header">
-  <a routerLink="/"
-    ><h2 class="logo"><i class="fa fa-book-open"></i></h2
-  ></a>
+<div class="header">
+  <!-- Logo,left side -->
+  <div class="navbar-brand">
+    <a routerLink="/"
+      ><h2 class="logo"><i class="fa fa-book-open"></i></h2
+    ></a>
+  </div>
 
-  <span class="example-spacer"></span>
-
-  <a
-    routerLink="/"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Home</a
-  >
-  <a routerLink="/task" routerLinkActive="active">Task</a>
-  <a routerLink="/contact" routerLinkActive="active">Contact</a>
-  <!-- <a routerLink="/task" routerLinkActive="active">Task</a> -->
-
-  <!-- <a  routerLink="/contact" routerLinkActive="active">Contact</a> -->
-</mat-toolbar>
+  <!-- menu , right side -->
+  <div class="menu-on-right-side">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a routerLink="/task" routerLinkActive="active">Task</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+  </div>
+</div>
